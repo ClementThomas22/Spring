@@ -8,3 +8,13 @@
       - ./data:/var/lib/mysql
     ports:
       - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: mariadb
+      MYSQL_ROOT_PASSWORD: monMotDePasseSuperSecret
+    ports:
+      - "7070:80"
+    depends_on:
+      - mariadb

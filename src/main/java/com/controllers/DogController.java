@@ -7,6 +7,7 @@ import com.services.impl.DogServiceImpl;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000") // Port par défaut de Vue
 @RestController
 @RequestMapping("/api/dogs")
 public class DogController {

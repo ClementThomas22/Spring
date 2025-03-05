@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dog Management App</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 8px; 
+            text-align: left; 
+        }
+        input, button { 
+            margin: 10px 0; 
+            padding: 5px; 
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Dog Management</h1>
+        
+        <!-- Form for adding/editing dogs -->
+        <div>
+            <input v-model="newDog.name" placeholder="Dog Name" />
+            <input v-model="newDog.race" placeholder="Dog Breed" />
+            <button @click="saveDog">{{ editingDog ? 'Update' : 'Add' }} Dog</button>
+        </div>
+
+        <!-- Dog List -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Breed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="dog in dogs" :key="dog.id">
+                    <td>{{ dog.id }}</td>
+                    <td>{{ dog.name }}</td>
+                    <td>{{ dog.race }}</td>
+                    <td>
+                        <button @click="editDog(dog)">Edit</button>
+                        <button @click="deleteDog(dog.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const dogs = ref([]);
+                const newDog = ref({ name: '', race: '' });
+                const editingDog = ref(null);
+
+                // Fetch dogs on component mount
+                const fetchDogs = async () => {
+                    try {
+                        const response = await axios.get('/api/dogs');
+                        dogs.value = response.data;
+                    } catch (error) {
+                        console.error('Error fetching dogs:', error);
+                    }
+                };
+
+                // Save or update a dog
+                const saveDog = async () => {
+                    try {
+                        if (editingDog.value) {
+                            // Update existing dog
+                            await axios.put(`/api/dogs/${editingDog.value.id}`, {
+                                id: editingDog.value.id,
+                                name: newDog.value.name,
+                                race: newDog.value.race
+                            });
+                            editingDog.value = null;
+                        } else {
+                            // Add new dog
+                            await axios.post('/api/dogs', {
+                                name: newDog.value.name,
+                                race: newDog.value.race
+                            });
+                        }
+                        
+                        // Reset form and refresh list
+                        newDog.value = { name: '', race: '' };
+                        fetchDogs();
+                    } catch (error) {
+                        console.error('Error saving dog:', error);
+                    }
+                };
+
+                // Prepare dog for editing
+                const editDog = (dog) => {
+                    editingDog.value = dog;
+                    newDog.value = { 
+                        name: dog.name, 
+                        race: dog.race 
+                    };
+                };
+
+                // Delete a dog
+                const deleteDog = async (id) => {
+                    try {
+                        await axios.delete(`/api/dogs/${id}`);
+                        fetchDogs();
+                    } catch (error) {
+                        console.error('Error deleting dog:', error);
+                    }
+                };
+
+                // Fetch dogs when component is created
+                fetchDogs();
+
+                return {
+                    dogs,
+                    newDog,
+                    editingDog,
+                    saveDog,
+                    editDog,
+                    deleteDog
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import DogListView from '@/views/Dogs/DogListView.vue'
-import StudentListView from '@/views/Students/StudentListView.vue'
-import AcademicYearListView from '@/views/AcademicYears/AcademicYearListView.vue'
+import StudentListView from "@/views/Student/StudentListView.vue";
 
 const routes = [
     {
@@ -19,12 +18,8 @@ const routes = [
         path: '/students',
         name: 'Students',
         component: StudentListView
-    },
-    {
-        path: '/academic-years',
-        name: 'AcademicYears',
-        component: AcademicYearListView
     }
+
 ]
 
 const router = createRouter({

@@ -6,8 +6,7 @@
     <div class="nav-links">
       <router-link to="/">Accueil</router-link>
       <router-link to="/dogs">Chiens</router-link>
-      <router-link to="/students">Étudiants</router-link>
-      <router-link to="/academic-years">Formations</router-link>
+      <router-link to="/students">Students</router-link>
     </div>
   </div>
 </nav>

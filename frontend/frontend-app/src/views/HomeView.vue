@@ -13,7 +13,7 @@
         <p>Consultez et gérez les informations des étudiants</p>
       </router-link>
 
-      <router-link to="/academic-years" class="card">
+      <router-link to="/academic" class="card">
         <h2>Années Académiques</h2>
         <p>Consultez et gérez les formations</p>
       </router-link>

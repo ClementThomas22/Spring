@@ -7,6 +7,7 @@
       <router-link to="/">Accueil</router-link>
       <router-link to="/dogs">Chiens</router-link>
       <router-link to="/students">Students</router-link>
+      <router-link to="/academic">Academic Year</router-link>
     </div>
   </div>
 </nav>

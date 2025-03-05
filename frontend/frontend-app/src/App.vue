@@ -5,7 +5,6 @@
     <router-link to="/" class="brand">Mon Application</router-link>
     <div class="nav-links">
       <router-link to="/">Accueil</router-link>
-      <router-link to="/dogs">Chiens</router-link>
       <router-link to="/students">Students</router-link>
       <router-link to="/academic">Academic Year</router-link>
     </div>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = '/messages'
+const API_URL = '/api/messages'
 
 class MessageService {
   // Récupérer tous les messages d'un étudiant

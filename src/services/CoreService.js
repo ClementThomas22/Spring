@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = '/core'
+const API_URL = '/api/core'
 
 class CoreService {
   // Récupérer les informations agrégées d'un étudiant

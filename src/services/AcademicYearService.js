@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = '/academicyears'
+const API_URL = '/api/academicyears'
 
 class AcademicYearService {
   // Récupérer toutes les années académiques
